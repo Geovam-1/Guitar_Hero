@@ -96,12 +96,12 @@ entradaUsuario scoreRef sequenciaRef notasRef bonusRef = forever $ do
 
 processarTupla :: (Int, Int, Int, Int, Int) -> [String] -> [String]
 processarTupla (n1, n2, n3, n4, n5) guitar =
-    let guitar' = if n1 == 1 then cairNota 1 0 'A' guitar else guitar
-        guitar'' = if n2 == 1 then cairNota 2 0 'S' guitar' else guitar'
-        guitar''' = if n3 == 1 then cairNota 3 0 'J' guitar'' else guitar''
-        guitar'''' = if n4 == 1 then cairNota 4 0 'K' guitar''' else guitar'''
-        guitar''''' = if n5 == 1 then cairNota 5 0 'L' guitar'''' else guitar''''
-    in guitar'''''
+    let guitar1 = if n1 == 1 then cairNota 1 0 'A' guitar else guitar
+        guitar2 = if n2 == 1 then cairNota 2 0 'S' guitar1 else guitar1
+        guitar3 = if n3 == 1 then cairNota 3 0 'J' guitar2 else guitar2
+        guitar4 = if n4 == 1 then cairNota 4 0 'K' guitar3 else guitar3
+        guitar5 = if n5 == 1 then cairNota 5 0 'L' guitar4 else guitar4
+    in guitar5
 
 gameLoop :: [(Int, Int, Int, Int, Int)] -> String ->  IO () -> IO ()
 gameLoop notaTuplas nickName callback = do
