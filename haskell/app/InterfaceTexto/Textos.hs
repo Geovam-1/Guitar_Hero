@@ -28,8 +28,8 @@ strNickName =
     "                                                                                      \n" ++
     "                                                                                      \n" ++
     "                              Digite seu NickName:                                    \n" ++
-    "                                                                                      \n"
-
+    "                                                                                      \n" ++
+    "                                  1: Voltar                                           \n"
 
 
 strInicial :: String -> [Char]
@@ -90,7 +90,7 @@ strTurorial =
     " ███  █▄ ▄█  ▐   ▀         █   █          █     █              █   ▀███▀       ▀    ▀ \n" ++
     "       ▀▀▀                █   ▀          ▀     █              ▀                       \n" ++
     "                         ▀                    ▀                                       \n" ++
-    "Quando a letra chegar ao final da guitarra, aperte-a para ganhar os pontos.\nAo acertar uma sêquencia de 10 notas, rebece um bônus de 50 pontos.\nCaso erre uma nota, a sequência de notas será resetada.\n"
+    "Quando a letra chegar ao final da guitarra, aperte-a para ganhar os pontos.\nAo acertar uma sêquencia de 10 notas, rebece um bônus de 50 pontos.\nCaso erre uma nota, a sequência de notas será resetada.\nNo modo normal as músicas tem menos notas e nenhuma nota | L |\n"
 
 
 strFimJogo :: String-> Int -> [Char]
