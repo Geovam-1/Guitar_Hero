@@ -2,6 +2,7 @@ module Util where
 
 import System.Console.ANSI
 import System.Process (callCommand)
+import System.Exit
 
 colorirEImprimirLinha :: String -> IO ()
 colorirEImprimirLinha [] = return ()
@@ -23,3 +24,8 @@ colorChar char = do
 
 limparTerminal :: IO ()
 limparTerminal = callCommand "clear"
+
+encerraPrograma :: IO ()
+encerraPrograma = do
+    putStrLn "Fechando o jogo..."
+    exitSuccess

@@ -1,14 +1,13 @@
 module Main where
 
-import System.Exit
 import Tutorial.Tutorial
 import Util
-import InterfaceTexto.TextoMenu
+import InterfaceTexto.Textos
 import MusicPlayer
 import MusicData
-import Text.Read (Lexeme(String))
 import Data.Char (isSpace)
-import  Game.Jogo as Jogo
+import Game.Jogo as Jogo
+import InterfaceTexto.Textos (msgFinal)
 
 menuBemVindo :: IO()
 menuBemVindo = do
@@ -19,8 +18,7 @@ menuBemVindo = do
     if comando == 1 then menuNickName
     else if comando == 2 then do
         pararMusica
-        putStrLn "Fechando o Jogo..."
-        exitSuccess
+        encerraPrograma
     else do
         putStr "Comando Inválido! Tente novamente.\n"
         menuBemVindo
@@ -46,11 +44,8 @@ menuInicial nickName = do
         mostrarTutorial 2
         menuInicial nickName
     else if comando == 3 then do
-        pararMusica
-        putStrLn "Fechando o Jogo..."
-        exitSuccess
+        menuNickName
     else do
-        putStr "Comando Inválido! Tente novamente.\n"
         menuInicial nickName
 
 menuMusicas :: String -> IO ()
@@ -74,19 +69,14 @@ menuDificuldade nickName m = do
     dificuldade <- readLn :: IO Int
 
     if dificuldade == 3 then do
-        menuInicial nickName
+        menuMusicas nickName
     else if dificuldade > 3 then do
         putStr "Dificuldade inválida! Tente novamente.\n"
         menuDificuldade nickName m
     else do
         pararMusica
 	tocarMusica m
-	Jogo.gameLoop (getMusicNotes m dificuldade) nickName encerraPrograma
-
-encerraPrograma :: IO()
-encerraPrograma = do
-    putStrLn "Fechando o Jogo..."
-    exitSuccess
+	Jogo.gameLoop (getMusicNotes m dificuldade) nickName msgFinal
 
 main :: IO ()
 main = do

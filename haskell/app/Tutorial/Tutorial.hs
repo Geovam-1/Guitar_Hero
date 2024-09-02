@@ -2,7 +2,7 @@ module Tutorial.Tutorial where
 
 import Control.Concurrent (threadDelay)
 import Util
-import InterfaceTexto.TextoMenu (strTurorial)
+import InterfaceTexto.Textos (strTurorial)
 
 tutorialGuitar :: [String]
 tutorialGuitar = [

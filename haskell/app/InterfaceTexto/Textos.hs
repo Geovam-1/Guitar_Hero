@@ -1,4 +1,4 @@
-module InterfaceTexto.TextoMenu where
+module InterfaceTexto.Textos where
 
 strBemvindo :: [Char]
 strBemvindo = 
@@ -11,7 +11,7 @@ strBemvindo =
     "                         ▀                    ▀                                       \n" ++
     "                                                                                      \n" ++
     "                                                                                      \n" ++
-    "               Prepare-se para o desafio! Bem-vindo ao Guitar Hero                    \n" ++
+    "                  Prepare-se para o desafio! Bem-vindo ao Guitar Hero                 \n" ++
     "                                                                                      \n" ++
     "                                  1: Add Nickname                                     \n" ++
     "                                  2: Sair                                             \n"
@@ -27,7 +27,7 @@ strNickName =
     "                         ▀                    ▀                                       \n" ++
     "                                                                                      \n" ++
     "                                                                                      \n" ++
-    "                       Digite seu NickName:                                           \n" 
+    "                              Digite seu NickName:                                    \n" 
 
 
 
@@ -46,7 +46,7 @@ strInicial nickName =
     "                                                                                      \n" ++
     "                                  1: Jogar                                            \n" ++
     "                                  2: Tutorial                                         \n" ++
-    "                                  3: Sair                                             \n"
+    "                                  3: Voltar                                           \n"
 
 strMusicas :: [Char]
 strMusicas =
@@ -92,3 +92,23 @@ strTurorial =
     "                         ▀                    ▀                                       \n" ++
     "Quando a letra chegar ao final da guitarra, aperte-a para ganhar os pontos.\nAo acertar uma sêquencia de 10 notas, rebece um bônus de 50 pontos.\nCaso erre uma nota, a sequência de notas será resetada.\n"
 
+
+strFimJogo :: String-> Int -> [Char]
+strFimJogo nickName pontuacao =
+    "  ▄▀    ▄   ▄█    ▄▄▄▄▀ ██   █▄▄▄▄      ▄  █ ██      ▄▄▄▄▄   █  █▀ ▄███▄   █    █     \n" ++   
+    "▄▀       █  ██ ▀▀▀ █    █ █  █  ▄▀     █   █ █ █    █     ▀▄ █▄█   █▀   ▀  █    █     \n" ++  
+    "█ ▀▄  █   █ ██     █    █▄▄█ █▀▀▌      ██▀▀█ █▄▄█ ▄  ▀▀▀▀▄   █▀▄   ██▄▄    █    █     \n" ++      
+    "█   █ █   █ ▐█    █     █  █ █  █      █   █ █  █  ▀▄▄▄▄▀    █  █  █▄   ▄▀ ███▄ ███▄  \n" ++
+    " ███  █▄ ▄█  ▐   ▀         █   █          █     █              █   ▀███▀       ▀    ▀ \n" ++
+    "       ▀▀▀                █   ▀          ▀     █              ▀                       \n" ++
+    "                         ▀                    ▀                                       \n" ++
+    "                                                                                      \n" ++
+    "                                  Jogador: " ++ nickName ++ "                         \n" ++
+    "                                  Pontuação: " ++ show pontuacao ++ "                 \n" ++
+    "                                                                                      \n" ++
+    "                                                                                      \n" ++
+    "                                                                                      \n"
+
+msgFinal :: IO ()
+msgFinal = do
+    putStrLn "Aperte Ctrl + Z para fechar o jogo."

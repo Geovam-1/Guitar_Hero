@@ -7,7 +7,7 @@ import Util
 import Data.IORef
 import Data.Time.Clock (getCurrentTime, diffUTCTime, UTCTime)
 import System.IO (hSetBuffering, BufferMode(NoBuffering), stdin, hFlush, stdout)
-import InterfaceTexto.TextoFimJogo
+import InterfaceTexto.Textos
 
 guitarAltura :: Int
 guitarAltura = 7
@@ -139,4 +139,3 @@ gameLoop notaTuplas nickName callback = do
 
     _ <- forkIO $ loop guitarBase notaTuplas
     entradaUsuario scoreRef sequenciaRef notasRef bonusRef
-
