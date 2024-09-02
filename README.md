@@ -23,8 +23,8 @@
 1. **Clone este repositório:**
     
     ```bash
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    cd seu-repositorio
+    git clone https://github.com/Geovam-1/Guitar_Hero.git
+    cd Guitar_Hero/
     ```
 
 2. **Instalar stack build**
