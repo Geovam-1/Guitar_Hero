@@ -80,7 +80,7 @@ menuDificuldade nickName m = do
         menuDificuldade nickName m
     else do
         pararMusica
-	    tocarMusica m
+	tocarMusica m
 	Jogo.gameLoop (getMusicNotes m dificuldade) nickName encerraPrograma
 
 encerraPrograma :: IO()
