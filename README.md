@@ -2,7 +2,7 @@
 
 ![Badge](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
 
-## **Este é um projeto desenvolvido para a disciplina de Paradigmas de Linguagem de Programação no período 2024.1 na Universidade Federal de Campina Grande (UFCG). O objetivo do projeto é criar uma versão simplificada do jogo Guitar Hero, jogável diretamente no terminal, utilizando a linguagem de programação Haskell e Prolog.**
+## **Este é um projeto desenvolvido para a disciplina de Paradigmas de Linguagem de Programação no período 2024.1 na Universidade Federal de Campina Grande (UFCG). O objetivo do projeto é criar uma versão simplificada do jogo Guitar Hero, jogável diretamente no terminal, utilizando as linguagens de programação Haskell e Prolog.**
 
 ### Descrição do Projeto:
 
