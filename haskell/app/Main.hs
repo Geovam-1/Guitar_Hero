@@ -7,7 +7,6 @@ import MusicPlayer
 import MusicData
 import Data.Char (isSpace)
 import Game.Jogo as Jogo
-import InterfaceTexto.Textos (msgFinal)
 
 menuBemVindo :: IO()
 menuBemVindo = do
@@ -21,6 +20,7 @@ menuBemVindo = do
         encerraPrograma
     else do
         putStr "Comando Inválido! Tente novamente.\n"
+        delay
         menuBemVindo
 
 menuNickName :: IO()
@@ -30,8 +30,9 @@ menuNickName = do
     nickName <- getLine
     if all isSpace nickName then do
         putStrLn "Insira um nome valido \n" 
+        delay
         menuNickName
-        else menuInicial nickName
+    else menuInicial nickName
 
 menuInicial :: String -> IO ()
 menuInicial nickName = do
@@ -46,6 +47,8 @@ menuInicial nickName = do
     else if comando == 3 then do
         menuNickName
     else do
+        putStr "Comando Inválido! Tente novamente.\n"
+        delay
         menuInicial nickName
 
 menuMusicas :: String -> IO ()
@@ -60,6 +63,7 @@ menuMusicas nickName = do
         menuInicial nickName
     else do
         putStr "Música inválida! Tente novamente.\n"
+        delay
         menuMusicas nickName
 
 menuDificuldade :: String -> Int -> IO ()
@@ -72,11 +76,18 @@ menuDificuldade nickName m = do
         menuMusicas nickName
     else if dificuldade > 3 then do
         putStr "Dificuldade inválida! Tente novamente.\n"
+        delay
         menuDificuldade nickName m
     else do
         pararMusica
-	tocarMusica m
-	Jogo.gameLoop (getMusicNotes m dificuldade) nickName msgFinal
+    
+    tocarMusica m
+    Jogo.gameLoop (getMusicNotes m dificuldade) nickName (voltaMenu nickName)
+
+voltaMenu :: String -> IO ()
+voltaMenu nickName = do 
+    tocarMusicaMenu
+    menuInicial nickName
 
 main :: IO ()
 main = do

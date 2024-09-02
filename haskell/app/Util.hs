@@ -3,6 +3,7 @@ module Util where
 import System.Console.ANSI
 import System.Process (callCommand)
 import System.Exit
+import Control.Concurrent (threadDelay)
 
 colorirEImprimirLinha :: String -> IO ()
 colorirEImprimirLinha [] = return ()
@@ -29,3 +30,7 @@ encerraPrograma :: IO ()
 encerraPrograma = do
     putStrLn "Fechando o jogo..."
     exitSuccess
+
+delay :: IO () 
+delay = do
+    threadDelay 500000

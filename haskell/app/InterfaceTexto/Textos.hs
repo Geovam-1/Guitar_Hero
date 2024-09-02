@@ -27,8 +27,8 @@ strNickName =
     "                         ▀                    ▀                                       \n" ++
     "                                                                                      \n" ++
     "                                                                                      \n" ++
-    "                              Digite seu NickName:                                    \n" 
-
+    "                              Digite seu NickName:                                    \n" ++
+    "                                                                                      \n"
 
 
 

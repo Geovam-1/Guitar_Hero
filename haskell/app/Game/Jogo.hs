@@ -1,13 +1,14 @@
 module Game.Jogo where
 
 import System.Console.ANSI
-import Control.Concurrent (forkIO, threadDelay)
+import Control.Concurrent (forkIO, threadDelay, killThread)
 import Control.Monad (forever)
 import Util
 import Data.IORef
 import Data.Time.Clock (getCurrentTime, diffUTCTime, UTCTime)
 import System.IO (hSetBuffering, BufferMode(NoBuffering), stdin, hFlush, stdout)
 import InterfaceTexto.Textos
+import Control.Exception (finally)
 
 guitarAltura :: Int
 guitarAltura = 7
@@ -55,6 +56,28 @@ moverNotas guitar =
     let linhasMovidas = take guitarAltura ("|   |   |   |   |   |" : guitar)
     in linhasMovidas ++ drop guitarAltura guitar
 
+processarTupla :: (Int, Int, Int, Int, Int) -> [String] -> [String]
+processarTupla (n1, n2, n3, n4, n5) guitar =
+    let guitar1 = if n1 == 1 then cairNota 1 0 'A' guitar else guitar
+        guitar2 = if n2 == 1 then cairNota 2 0 'S' guitar1 else guitar1
+        guitar3 = if n3 == 1 then cairNota 3 0 'J' guitar2 else guitar2
+        guitar4 = if n4 == 1 then cairNota 4 0 'K' guitar3 else guitar3
+        guitar5 = if n5 == 1 then cairNota 5 0 'L' guitar4 else guitar4
+    in guitar5
+
+bonus :: IORef Int -> IORef Int -> IORef String -> IO ()
+bonus scoreRef sequenciaRef bonusRef = do
+    sequencia <- readIORef sequenciaRef
+    let sequenciaBonus = if sequencia > 0 && sequencia `mod` 10 == 0
+                         then 50
+                         else 0
+    modifyIORef' scoreRef (+ (10 + sequenciaBonus))
+    modifyIORef' sequenciaRef (+1)
+    let mensagemBonus = if sequencia > 0 && sequencia `mod` 10 == 0
+                        then "Bônus! +50 pontos"
+                        else ""
+    writeIORef bonusRef mensagemBonus
+
 entradaUsuario :: IORef Int -> IORef Int -> IORef [(Int, UTCTime, Int)] -> IORef String -> IO ()
 entradaUsuario scoreRef sequenciaRef notasRef bonusRef = forever $ do
     c <- getChar
@@ -71,37 +94,15 @@ entradaUsuario scoreRef sequenciaRef notasRef bonusRef = forever $ do
       then do
         let margem = 0.2
             duracaoCair = fromIntegral (guitarAltura * tempoQuedaNota) / 1000000
-        let matched = any (\(nCol, startTime, linha) -> 
-                            nCol == col && 
-                            linha == guitarAltura && 
-                            abs (realToFrac (diffUTCTime currentTime startTime) - duracaoCair) < margem
-                          ) notas
+        let matched = any (\(nCol, startTime, linha) -> nCol == col && linha == guitarAltura && 
+                abs (realToFrac (diffUTCTime currentTime startTime) - duracaoCair) < margem) notas
         if matched
-          then do
-            sequencia <- readIORef sequenciaRef
-            let sequenciaBonus = if sequencia > 0 && sequencia `mod` 10 == 0
-                               then 50
-                               else 0
-            modifyIORef' scoreRef (+ (10 + sequenciaBonus))
-            modifyIORef' sequenciaRef (+1)
-            let mensagemBonus = if sequencia > 0 && sequencia `mod` 10 == 0
-                                then "Bônus! +50 pontos"
-                                else ""
-            writeIORef bonusRef mensagemBonus
+          then bonus scoreRef sequenciaRef bonusRef
           else do
             putStrLn "Errou!"
             writeIORef sequenciaRef 0
             writeIORef bonusRef ""
       else return ()
-
-processarTupla :: (Int, Int, Int, Int, Int) -> [String] -> [String]
-processarTupla (n1, n2, n3, n4, n5) guitar =
-    let guitar1 = if n1 == 1 then cairNota 1 0 'A' guitar else guitar
-        guitar2 = if n2 == 1 then cairNota 2 0 'S' guitar1 else guitar1
-        guitar3 = if n3 == 1 then cairNota 3 0 'J' guitar2 else guitar2
-        guitar4 = if n4 == 1 then cairNota 4 0 'K' guitar3 else guitar3
-        guitar5 = if n5 == 1 then cairNota 5 0 'L' guitar4 else guitar4
-    in guitar5
 
 gameLoop :: [(Int, Int, Int, Int, Int)] -> String ->  IO () -> IO ()
 gameLoop notaTuplas nickName callback = do
@@ -111,12 +112,16 @@ gameLoop notaTuplas nickName callback = do
     notasRef <- newIORef []
     bonusRef <- newIORef ""
 
+    entradaThreadId <- forkIO $ entradaUsuario scoreRef sequenciaRef notasRef bonusRef
+
     let loop guitarEstado notas = do
             case notas of
                 [] -> do 
                     limparTerminal
                     score <- readIORef scoreRef
                     putStrLn (strFimJogo nickName score)
+                    killThread entradaThreadId
+                    threadDelay 1500000
                     callback
                 (nt:nts) -> do
                     currentTime <- getCurrentTime
@@ -137,5 +142,5 @@ gameLoop notaTuplas nickName callback = do
                     threadDelay tempoQuedaNota
                     loop movedGuitar nts
 
-    _ <- forkIO $ loop guitarBase notaTuplas
-    entradaUsuario scoreRef sequenciaRef notasRef bonusRef
+    loop guitarBase notaTuplas `finally` killThread entradaThreadId
+    return ()
