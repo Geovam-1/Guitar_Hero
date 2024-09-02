@@ -38,8 +38,7 @@ executable guitar-hero-exe
   main-is: Main.hs
   other-modules:
       Game.Jogo
-      InterfaceTexto.TextoFimJogo
-      InterfaceTexto.TextoMenu
+      InterfaceTexto.Textos
       MusicData
       MusicPlayer
       Tutorial.Tutorial

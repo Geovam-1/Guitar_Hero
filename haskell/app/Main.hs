@@ -5,31 +5,42 @@ import Util
 import InterfaceTexto.Textos
 import MusicPlayer
 import MusicData
-import Data.Char (isSpace)
+import Data.Char (isSpace, toLower)
 import Game.Jogo as Jogo
+import System.IO (hSetBuffering, BufferMode(NoBuffering), stdin)
+
+tecla :: IO Char
+tecla = do
+    hSetBuffering stdin NoBuffering
+    c <- getChar
+    return c
 
 menuBemVindo :: IO()
 menuBemVindo = do
     limparTerminal
     putStr strBemvindo
-    comando <- readLn :: IO Int
+    comando <- tecla
 
-    if comando == 1 then menuNickName
-    else if comando == 2 then do
-        pararMusica
-        encerraPrograma
-    else do
-        putStr "Comando Inválido! Tente novamente.\n"
-        delay
-        menuBemVindo
+    case toLower comando of
+        '1' -> menuNickName
+        '2' -> do
+            pararMusica
+            encerraPrograma
+        _   -> do
+            putStr "Comando Inválido! Tente novamente.\n"
+            delay
+            menuBemVindo
 
 menuNickName :: IO()
 menuNickName = do
     limparTerminal
     putStr strNickName
     nickName <- getLine
-    if all isSpace nickName then do
-        putStrLn "Insira um nome valido \n" 
+
+    if nickName == "1" then do 
+        menuBemVindo
+    else if all isSpace nickName then do
+        putStrLn "Insira um nome valido!\n" 
         delay
         menuNickName
     else menuInicial nickName
@@ -38,50 +49,55 @@ menuInicial :: String -> IO ()
 menuInicial nickName = do
     limparTerminal
     putStr (strInicial nickName)
-    comando <- readLn :: IO Int
+    comando <- tecla
 
-    if comando == 1 then menuMusicas nickName
-    else if comando == 2 then do 
-        mostrarTutorial 2
-        menuInicial nickName
-    else if comando == 3 then do
-        menuNickName
-    else do
-        putStr "Comando Inválido! Tente novamente.\n"
-        delay
-        menuInicial nickName
+    case toLower comando of
+        '1' -> menuMusicas nickName
+        '2' -> do 
+            mostrarTutorial 2
+            menuInicial nickName
+        '3' -> menuNickName
+        _   -> do
+            putStr "Comando Inválido! Tente novamente.\n"
+            delay
+            menuInicial nickName
 
 menuMusicas :: String -> IO ()
 menuMusicas nickName = do
     limparTerminal
     putStr strMusicas
-    musica <- readLn :: IO Int
+    musica <- tecla
 
-    if musica >= 1 && musica <= 3 then 
-        menuDificuldade nickName musica
-    else if musica == 4 then
-        menuInicial nickName
-    else do
-        putStr "Música inválida! Tente novamente.\n"
-        delay
-        menuMusicas nickName
+    case toLower musica of
+        '1' -> menuDificuldade nickName 1
+        '2' -> menuDificuldade nickName 2
+        '3' -> menuDificuldade nickName 3
+        '4' -> menuInicial nickName
+        _   -> do
+            putStr "Música inválida! Tente novamente.\n"
+            delay
+            menuMusicas nickName
 
 menuDificuldade :: String -> Int -> IO ()
 menuDificuldade nickName m = do
     limparTerminal
     putStr strDificuldade
-    dificuldade <- readLn :: IO Int
+    dificuldade <- tecla
 
-    if dificuldade == 3 then do
-        menuMusicas nickName
-    else if dificuldade > 3 then do
-        putStr "Dificuldade inválida! Tente novamente.\n"
-        delay
-        menuDificuldade nickName m
-    else do
-        pararMusica
-    
+    case toLower dificuldade of
+        '1' -> iniciarJogo m 1 nickName
+        '2' -> iniciarJogo m 2 nickName
+        '3' -> menuMusicas nickName
+        _   -> do
+            putStr "Dificuldade inválida! Tente novamente.\n"
+            delay
+            menuDificuldade nickName m
+
+iniciarJogo :: Int -> Int -> String -> IO ()
+iniciarJogo m dificuldade nickName = do
+    pararMusica
     tocarMusica m
+
     Jogo.gameLoop (getMusicNotes m dificuldade) nickName (voltaMenu nickName)
 
 voltaMenu :: String -> IO ()
@@ -91,6 +107,6 @@ voltaMenu nickName = do
 
 main :: IO ()
 main = do
+    hSetBuffering stdin NoBuffering
     tocarMusicaMenu
     menuBemVindo
-

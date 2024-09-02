@@ -1,0 +1,26 @@
+/home/geo/.ghcup/ghc/9.6.6/lib/ghc-9.6.6/lib/x86_64-linux-ghc-9.6.6/rts-1.0.2/include/ghcversion.h:
+  hash: 9032f6afc97dcddfe8c8b306639eb6f456e3f6667f3dd8268681f51bb77c8634
+? /home/geo/gh_final/Guitar_Hero/haskell/.stack-work/dist/x86_64-linux/ghc-9.6.6/build/guitar-hero-exe/autogen/Paths_guitar_hero.hs
+: hash: 4ebd058f79a4131cdf66a7801131a76d08407f84003c4624eb653d3e7ec12d76
+/home/geo/gh_final/Guitar_Hero/haskell/.stack-work/dist/x86_64-linux/ghc-9.6.6/build/guitar-hero-exe/autogen/cabal_macros.h:
+  hash: 2eae9551acf3b7b5869de462311204c49b7b219fc12944b9ef6fb5be1216d2ae
+/home/geo/gh_final/Guitar_Hero/haskell/app/Game/Jogo.hs:
+  hash: 84d5048504f8a815578c91af6d7165080c11800fd78b9e6ec36808cd947d2016
+/home/geo/gh_final/Guitar_Hero/haskell/app/InterfaceTexto/Textos.hs:
+  hash: d782678ca6a9e618517f570d20d7cbf774304c692c47321526d09a95cf44edef
+/home/geo/gh_final/Guitar_Hero/haskell/app/Main.hs:
+  hash: eda904f9270746af685fe69c757e7953e707acfb2accd376e4e354f3cbeccd1b
+/home/geo/gh_final/Guitar_Hero/haskell/app/MusicData.hs:
+  hash: f30a1878cf3125c3da3ec8f0d1fb3661c0432f545a6a227dcb67722414d9b7a3
+/home/geo/gh_final/Guitar_Hero/haskell/app/MusicPlayer.hs:
+  hash: ec9722fb738e71e0104a963ab5261626fb69a827513b779cef7a312d9ad9a35d
+/home/geo/gh_final/Guitar_Hero/haskell/app/Tutorial/Tutorial.hs:
+  hash: a6f1448f4c5090ecbdd4576189d33a632440688cc58b1fab01372ce17a3f51ef
+/home/geo/gh_final/Guitar_Hero/haskell/app/Util.hs:
+  hash: a2bfa4a50aeff78b7dded910d4a2e55ddacf2bbb81beaa67c96d25d14dab056e
+/home/geo/gh_final/Guitar_Hero/haskell/guitar-hero.cabal:
+  hash: 86a262707eba166beffa7bd6816cba3390444e0ac3db1b748c60bcc76eed8df2
+/home/geo/gh_final/Guitar_Hero/haskell/package.yaml:
+  hash: 01fd128477651cde03e8a60dc4430c4288942bb7daf5a82d50a885c519f4f4a5
+/usr/include/stdc-predef.h:
+  hash: cb08cd5d4cc059a90833ac48a284d25016e8d56ded8ad4cd98d8ac59cc5053f3
