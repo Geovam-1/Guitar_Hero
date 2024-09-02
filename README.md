@@ -49,7 +49,9 @@
     stack run
     ```
     
-6. **Siga as instruções na tela para jogar.**
+**❗ OBS: É necessário digitar o comando `ctrl + z` para a finalização do jogo.**
+       
+**Siga as instruções na tela para jogar.**
 
 ## **Autores**
 
