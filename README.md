@@ -41,7 +41,7 @@
    ```bash
    swipl guitarprolog.pl
    ```
-3. **Chame o jogo no prolog:**
+3. **Chame o menu dentro do SWIPL:**
 
    ```bash
    menu.
