@@ -63,7 +63,6 @@ formataEntrada(Entrada, Formatada) :-
 
 substituiChar([], Lista, Lista).
 substituiChar([H|T], Lista, Final) :-
-    % Verifica se o caractere lido está entre A, S, J, K, L
     ( H = 'A' -> nth0(0, Lista, _, Lista1), nth0(0, ListaFinal, 'A', Lista1)
     ; H = 'S' -> nth0(1, Lista, _, Lista2), nth0(1, ListaFinal, 'S', Lista2)
     ; H = 'J' -> nth0(2, Lista, _, Lista3), nth0(2, ListaFinal, 'J', Lista3)
